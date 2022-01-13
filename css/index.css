@@ -1,0 +1,117 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+  
+  
+  nav {
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  }
+  
+  
+  .main-color {
+    color :orange !important;
+    border-color: orange !important;
+  }
+  
+  input:focus , button {
+    box-shadow: none !important;
+    border: 1px solid orange !important;
+  }
+  
+  .input-group{
+       width: 350px !important;
+       height: 35px !important;
+  }
+  
+  
+  .btn-outline-secondary {
+    border-color: #ced4da !important;
+  }
+  
+  .btn-outline-secondary:hover {
+    color: white !important;
+    background-color:  orange  !important;
+    border-color: orange  !important;
+  }
+  
+  .btn-outline-secondary:focus {
+    color: white !important;
+    box-shadow: none !important;
+  }
+  
+  .row {
+    --bs-gutter-x : 0 !important;
+  }
+  
+  .w-40{
+    width: 40% !important; 
+  }
+  
+  .box {
+    background-color: white;
+    width: 50%;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  }
+  
+  .active-link {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    color : orange !important;
+  }
+  
+  .btn-orange {
+     background-color: orange !important;
+     color: white !important;
+  }
+
+  .btn-account button {
+    border: none !important;
+  }
+
+  .list-group-item {
+    border : none !important;
+    margin-left: 5px !important;
+    padding: 2px;
+ }
+ 
+ .card-custom {
+   margin-right: 5%;
+   transition: transform 250ms;
+   cursor:pointer;
+ }
+ 
+ .card-custom:hover {
+   transform: scale(1.01);
+   box-shadow: rgba(0, 0, 0, 0.30) 0px 25px 20px -20px;
+ }
+ 
+ .card-custom {
+   min-height: 100%;
+ }
+
+  @keyframes blinker {  
+  50% { opacity: 0; }
+  }
+
+  .alert-orange {
+  animation: blinker 4s linear infinite;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: sans-serif;
+  background-color: orange;
+  color: white;
+  }
+
+  .filter-link{
+    text-decoration: none;
+    color: black;
+  }
