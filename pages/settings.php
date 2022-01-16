@@ -117,7 +117,7 @@
                         <h5 class="mb-4">Kullanıcı Ayarları</h5>
 
                         <div class="row">
-                            <form>
+                           
                             <?php
                                 include "../dao/connection.php";
 
@@ -126,19 +126,21 @@
                                     $select = mysqli_query($connection, "SELECT * from users where id=$userId");
                                 }
 
+                                echo '<form action="../dao/updateSettings.php?userId='.$userId.'" method="POST">';
+
                                 while ($result = mysqli_fetch_array($select)) {
                                    echo '
                                    <div class="row">
                                         <div class="col-6">
                                             <h6 for="name">Adı:</h6>
                                             <div class="input-group">   
-                                                <input type="text" class="form-control" placeholder="' . $result['Name'] . '" aria-label="name" aria-describedby="addon-wrapping"/>
+                                                <input type="text" name="Name" class="form-control" value="' . $result['Name'] . '" aria-label="name" aria-describedby="addon-wrapping" required/>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                             <h6 for="surname">Soyadı:</h6>
                                             <div class="input-group">   
-                                                <input type="text" class="form-control" placeholder="' . $result['Surname'] . '" aria-label="surname" aria-describedby="addon-wrapping"/>
+                                                <input type="text" name="Surname" class="form-control" value="' . $result['Surname'] . '" aria-label="surname" aria-describedby="addon-wrapping" required/>
                                             </div>
                                         </div>
                                     </div>
@@ -146,13 +148,13 @@
                                         <div class="col-6">
                                             <h6 for="name">Kullanıcı Adı:</h6>
                                                 <div class="input-group">   
-                                                    <input type="text" class="form-control" placeholder="' . $result['Username'] . '" aria-label="username" aria-describedby="addon-wrapping"/>
+                                                    <input type="text" name="Username" class="form-control" value="' . $result['Username'] . '" aria-label="username" aria-describedby="addon-wrapping" required/>
                                                 </div>
                                         </div>
                                         <div class="col-6">
                                             <h6 for="name">E-mail:</h6>
                                                 <div class="input-group">   
-                                                    <input type="e-mail" class="form-control" placeholder="' . $result['Mail'] . '" aria-label="e-mail" aria-describedby="addon-wrapping"/>
+                                                    <input type="e-mail" name="Mail" class="form-control" value="' . $result['Mail'] . '" aria-label="e-mail" aria-describedby="addon-wrapping" required/>
                                                 </div>
                                         </div>
                                     </div>
@@ -160,13 +162,13 @@
                                         <div class="col-6">
                                         <h6 for="name">Adres:</h6>
                                             <div class="input-group" >   
-                                                <input type="text"  class="form-control" placeholder="' . $result['Address'] . '" aria-label="username" aria-describedby="addon-wrapping"/>
+                                                <input type="text" name="Address" class="form-control" value="' . $result['Address'] . '" aria-label="username" aria-describedby="addon-wrapping" required/>
                                             </div>
                                         </div>
                                         <div class="col-6">
                                         <h6 for="name">Biyografi:</h6>
                                             <div class="input-group" >   
-                                                <input type="text"  class="form-control" placeholder="' . $result['Biography'] . '" aria-label="username" aria-describedby="addon-wrapping"/>
+                                                <input type="text" name="Biography" class="form-control" value="' . $result['Biography'] . '" aria-label="username" aria-describedby="addon-wrapping" required/>
                                             </div>
                                         </div>
                                     </div>
@@ -174,13 +176,13 @@
                                         <div class="col-6">
                                             <h6 for="name">Parola:</h6>
                                                 <div class="input-group">   
-                                                    <input type="password" class="form-control" placeholder="Yeni bir parola giriniz" aria-label="username" aria-describedby="addon-wrapping"/>
+                                                    <input type="password" name="Parola" class="form-control" placeholder="Yeni bir parola giriniz" aria-label="username" aria-describedby="addon-wrapping" required/>
                                                 </div>
                                         </div>
                                         <div class="col-6">
                                             <h6 for="name">Parola Tekrarı:</h6>
                                                 <div class="input-group">   
-                                                    <input type="password" class="form-control" placeholder="Parolayı tekrar giriniz" aria-label="e-mail" aria-describedby="addon-wrapping"/>
+                                                    <input type="password" name="ParolaTekrar" class="form-control" placeholder="Parolayı tekrar giriniz" aria-label="e-mail" aria-describedby="addon-wrapping" required/>
                                                 </div>
                                         </div>
                                     </div>

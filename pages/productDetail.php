@@ -178,7 +178,7 @@
                                     </div>
 
                                     <div class="buy">
-                                        <a href="buy.php?productId='.$productId.'" "type="button" class="w-100 btn btn-outline-warning mt-4">Satın Al</a>
+                                        <a href="buy.php?userId='. $row["UserId"] . '&productId='.$productId.'" "type="button" class="w-100 btn btn-outline-warning mt-4">Satın Al</a>
                                     </div>
                                 </div>
                             </div>                  

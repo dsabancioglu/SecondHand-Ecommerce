@@ -40,7 +40,7 @@
                 </div>
 
                 <?php
-                 include "../dao/connection.php";
+                include "../dao/connection.php";
 
                 if (empty($_COOKIE['username'])) {
                     $username = "null";
@@ -49,7 +49,7 @@
                 }
 
                 if (!empty($username) && $username != "null") {
-                    
+
                     $select = mysqli_query($connection, "SELECT * from users where username='$username'");
 
                     while ($result = mysqli_fetch_array($select)) {
@@ -69,9 +69,8 @@
                             <a class="dropdown-item" href="home.php?logout=true">Çıkış Yap</a>
                             </div>
                       </div>
-                     ';   
+                     ';
                     }
-                   
                 } else {
                     echo
                     '<div class="d-flex">
@@ -95,6 +94,8 @@
                     removeSession();
                 }
 
+
+
                 ?>
 
             </div>
@@ -114,18 +115,24 @@
         </div>
         <div class="d-flex justify-content-center">
             <div class="w-40 row no-gutters box p-5">
-                <form action="buy.php" method="POST">
+               
 
-                <?php
-                        include "../dao/connection.php";
+                    <?php
+                    include "../dao/connection.php";
 
-                        if (isset($_GET['productId'])) {
-                            $productId = $_GET['productId'];
-                            $select = mysqli_query($connection, "SELECT categories.Name as categoryName, products.Id, products.Image, brands.Name, products.Size, products.Text, products.Price FROM products LEFT JOIN brands ON brands.Id = products.BrandId LEFT JOIN categories ON categories.Id = products.CategoriesId where products.id=$productId");
-                            }
+                    if (isset($_GET['productId'])) {
+                        $productId = $_GET['productId'];
+                        $select = mysqli_query($connection, "SELECT categories.Name as categoryName, products.Id, products.Image, brands.Name, products.Size, products.Text, products.Price FROM products LEFT JOIN brands ON brands.Id = products.BrandId LEFT JOIN categories ON categories.Id = products.CategoriesId where products.id=$productId");
+                    }
 
-                            while ($result = mysqli_fetch_array($select)) {
-                                echo '
+                    if (isset($_GET['userId'])) {
+                        $userId = $_GET['userId'];
+                    }
+
+                    echo ' <form action="../dao/addToOrder.php?userId='.$userId.'" method="POST">';
+
+                    while ($result = mysqli_fetch_array($select)) {
+                        echo '
                                     <div class="card p-3 mt-2 mb-5">
                                       <div class="row d-flex">
                                         <div class="col-3">
@@ -140,25 +147,25 @@
                                     </div>
 
                                 ';
-                            }
+                    }
 
-                    ?> 
+                    ?>
                     </p>
                     <div class="form-group d-flex flex-column align-items-start mb-2">
                         <h6 for="exampleInputEmail1">Kart Numarası</h6>
-                        <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                        <input type="text" name="CardNo" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                     </div>
                     <div class="form-group d-flex flex-column align-items-start mb-3">
                         <h6 for="exampleInputPassword1">Kart Sahibinin Adı</h6>
-                        <input type="password" name="password" class="form-control" id="exampleInputPassword1" />
+                        <input type="text" name="CardName" class="form-control" id="exampleInputPassword1" />
                     </div>
                     <div class="form-group d-flex flex-column align-items-start mb-2">
                         <h6 for="exampleInputEmail1">CVC</h6>
-                        <input type="text" name="cvc" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                        <input type="text" name="Cvc" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                     </div>
                     <div class="form-group d-flex flex-column align-items-start mb-2">
                         <h6 for="exampleInputEmail1">Son Kullanma Tarihi</h6>
-                        <input type="text" name="expirationDate" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
+                        <input type="text" name="ExpirationDate" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" />
                     </div>
                     <button type="submit" class="w-100 btn btn-orange mt-4" name="buyButton">Satın Al</button>
                 </form>

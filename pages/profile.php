@@ -40,7 +40,7 @@
                 </div>
 
                 <?php
-                 include "../dao/connection.php";
+                include "../dao/connection.php";
 
                 if (empty($_COOKIE['username'])) {
                     $username = "null";
@@ -49,7 +49,7 @@
                 }
 
                 if (!empty($username) && $username != "null") {
-                    
+
                     $select = mysqli_query($connection, "SELECT * from users where username='$username'");
 
                     while ($result = mysqli_fetch_array($select)) {
@@ -69,9 +69,8 @@
                             <a class="dropdown-item" href="home.php?logout=true">Çıkış Yap</a>
                             </div>
                       </div>
-                     ';   
+                     ';
                     }
-                   
                 } else {
                     echo
                     '<div class="d-flex">
@@ -104,32 +103,32 @@
     <!------------------HEADER------------------>
 
     <div class="container mt-5 mb-5">
-            <div class="card p-3 mb-3" witdh="100%">
+        <div class="card p-3 mb-3" witdh="100%">
 
-                <div class="row">
-                    <div class="col-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="70%" height="70%" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
-                            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
-                        </svg> 
-                    </div>
+            <div class="row">
+                <div class="col-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="70%" height="70%" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                    </svg>
+                </div>
 
-                    <div class="col-9">
+                <div class="col-9">
 
-                        <div class="row">
-                            <form>
+                    <div class="row">
+                        <form>
                             <?php
-                                include "../dao/connection.php";
+                            include "../dao/connection.php";
 
-                                if (isset($_GET['userId'])) {
-                                    $userId = $_GET['userId'];
-                                    $select = mysqli_query($connection, "SELECT * from users where id=$userId");
-                                }
+                            if (isset($_GET['userId'])) {
+                                $userId = $_GET['userId'];
+                                $select = mysqli_query($connection, "SELECT * from users where id=$userId");
+                            }
 
-                                while ($result = mysqli_fetch_array($select)) {
-                                   echo '
+                            while ($result = mysqli_fetch_array($select)) {
+                                echo '
                                    <div class="row mt-5 pt-2">
                                         <div class="col-6">
-                                            <h5 for="name">' . $result['Name'] . " ". $result['Surname'].  '</h5>
+                                            <h5 for="name">' . $result['Name'] . " " . $result['Surname'] .  '</h5>
                                         </div>
                                     </div>
                                     <div class="row mt-5">
@@ -139,63 +138,67 @@
                                     </div>
                                     
                                     ';
-                                }
+                            }
                             ?>
-                            </form>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
-            
-            <div class="card p-3">
-                <div class="row">
-                    <div class="col-6 d-flex align-items-center">
-                        <h5>Ürünler</h5>
-                    </div>
+        </div>
 
-                    <?php
-                        include "../dao/connection.php";
+        <div class="card p-3">
+            <div class="row">
+                <div class="col-6 d-flex align-items-center">
+                    <h5>Ürünler</h5>
+                </div>
 
-                        $userId = $_GET['userId'];
-                        
-                        $username = htmlspecialchars($_COOKIE['username']);
+                <?php
+                include "../dao/connection.php";
 
-                        $select = mysqli_query($connection, "SELECT * from users where username='$username'");
 
-                        while ($result = mysqli_fetch_array($select)) {      
-                            if ( $userId == $result['Id']) {
-                                echo '
+
+                $userId = $_GET['userId'];
+
+                if (!empty($_COOKIE['username'])) {
+                    $username = htmlspecialchars($_COOKIE['username']);
+
+
+                    $select = mysqli_query($connection, "SELECT * from users where Username='$username'");
+
+                    while ($result = mysqli_fetch_array($select)) {
+                        if ($userId == $result['Id']) {
+                            echo '
                                     <div class="col-6 d-flex justify-content-end">
                                         <button type="submit" class="w-25 btn btn-orange" data-bs-toggle="modal" data-bs-target="#exampleModal">Ürün Ekle</button>
-                                    </div>'; 
-                            }
+                                    </div>';
                         }
-                       
-                    ?>
-                    </div>
-                <div class="row p-2">
-                    <?php
-                        include "../dao/connection.php";
+                    }
+                }
 
-                        if (isset($_GET['userId'])) {
-                            $userId = $_GET['userId'];
-                            $select = mysqli_query($connection, "SELECT categories.Name as categoryName, products.Id, products.Image, brands.Name, products.Size, products.Text, products.Price FROM products LEFT JOIN brands ON brands.Id = products.BrandId LEFT JOIN categories ON categories.Id = products.CategoriesId WHERE UserId=$userId");
-                        }
-                        
-                        if (empty($_COOKIE['username'])) {
-                            $username = "null";
-                        } else {
-                            $username = htmlspecialchars($_COOKIE['username']);
-                        }
-        
-                            
-                        $getUserId = mysqli_query($connection, "SELECT * from users where username='$username'");
+                ?>
+            </div>
+            <div class="row p-2">
+                <?php
+                include "../dao/connection.php";
 
-                        $result2 = mysqli_fetch_array($getUserId);
+                if (isset($_GET['userId'])) {
+                    $userId = $_GET['userId'];
+                    $select = mysqli_query($connection, "SELECT categories.Name as categoryName, products.Id, products.Image, brands.Name, products.Size, products.Text, products.Price FROM products LEFT JOIN brands ON brands.Id = products.BrandId LEFT JOIN categories ON categories.Id = products.CategoriesId WHERE UserId=$userId");
+                }
 
-                        while ($result = mysqli_fetch_array($select)) {
-                            echo
-                            '<div class="col col-md-3 mt-2 mb-2 ">
+                if (empty($_COOKIE['username']) || $_COOKIE['username'] == "null") {
+                    $username = "null";
+                    $result2['Id'] = "-1";
+                } else {
+                    $username = htmlspecialchars($_COOKIE['username']);
+                    $getUserId = mysqli_query($connection, "SELECT * from users where username='$username'");
+                    $result2 = mysqli_fetch_array($getUserId);
+                }
+
+
+                while ($result = mysqli_fetch_array($select)) {
+                    echo
+                    '<div class="col col-md-3 mt-2 mb-2 ">
                                     <div class="card  card-custom">
                                         <img src=' . $result['Image'] . 'class="img-fluid" alt="product-img" />
                                         <a href="productDetail.php?productId=' . $result['Id'] . '"  class="card-body text-start text-decoration-none text-dark">
@@ -207,60 +210,61 @@
                                             <h6 class="card-title">' . $result['Price'] . ' TL' . '</h6>
                                         </div>
                                         <div class="card-footer d-flex justify-content-end">
-                                        ' . (($result2['Id']==$userId) ? '<input type="submit" class="w-25 btn btn-danger" value="Sil"/>' : '<a href="buy.php?productId='. $result['Id'] .'" "type="button" class="w-100 btn btn-outline-warning mt-4">Satın Al</a> '). ' 
+                                        <script> console.log('. $result2['Id'] .')</script>' .(($result2['Id'] == $userId) ? '<a href="../dao/deleteProduct.php?userId='. $userId . '&productId=' . $result['Id'] . '" "type="button" name="deleteProduct" class="w-25 btn btn-danger"> Sil</a>' : '<a href="buy.php?productId=' . $result['Id'] . '" "type="button" class="w-100 btn btn-outline-warning mt-4">Satın Al</a> ') . ' 
                                         </div>
                                     </div>      
                             </div>';
-                        }
+                }
 
-                    ?>
-                </div>
 
-                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                ?>
+            </div>
+
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ürün Ekle</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                    <form>
-                        <div class="form-group d-flex flex-column align-items-start mb-2">
-                            <h6 for="exampleInputEmail1">Kullanıcı Adı</h6>
-                            <input type="text" class="form-control"  aria-describedby="emailHelp"/>
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Ürün Ekle</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <div class="form-group d-flex flex-column align-items-start mb-2">
-                            <h6 for="exampleInputEmail1">E-mail</h6>
-                            <input type="email" class="form-control" aria-describedby="emailHelp"/>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group d-flex flex-column align-items-start mb-2">
+                                    <h6 for="exampleInputEmail1">Kullanıcı Adı</h6>
+                                    <input type="text" class="form-control" aria-describedby="emailHelp" />
+                                </div>
+                                <div class="form-group d-flex flex-column align-items-start mb-2">
+                                    <h6 for="exampleInputEmail1">E-mail</h6>
+                                    <input type="email" class="form-control" aria-describedby="emailHelp" />
+                                </div>
+                                <div class="form-group d-flex flex-column align-items-start mb-2">
+                                    <h6 for="exampleInputEmail1">Ad</h6>
+                                    <input type="text" class="form-control" aria-describedby="emailHelp" />
+                                </div>
+                                <div class="form-group d-flex flex-column align-items-start mb-2">
+                                    <h6 for="exampleInputEmail1">Soyad</h6>
+                                    <input type="text" class="form-control" aria-describedby="emailHelp" />
+                                </div>
+                                <div class="form-group d-flex flex-column align-items-start mb-3">
+                                    <h6 for="exampleInputPassword1">Parola</h6>
+                                    <input type="password" class="form-control" />
+                                </div>
+                            </form>
                         </div>
-                        <div class="form-group d-flex flex-column align-items-start mb-2">
-                            <h6 for="exampleInputEmail1">Ad</h6>
-                            <input type="text" class="form-control"  aria-describedby="emailHelp"/>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+                            <button type="button" class="btn btn-success">Ekle</button>
                         </div>
-                        <div class="form-group d-flex flex-column align-items-start mb-2">
-                            <h6 for="exampleInputEmail1">Soyad</h6>
-                            <input type="text" class="form-control"  aria-describedby="emailHelp"/>
-                        </div>
-                        <div class="form-group d-flex flex-column align-items-start mb-3">
-                            <h6 for="exampleInputPassword1">Parola</h6>
-                            <input type="password" class="form-control" />
-                        </div>
-                    </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                        <button type="button" class="btn btn-success">Ekle</button>
-                    </div>
                     </div>
                 </div>
-                </div>
-
-
-
             </div>
-        </div>
 
-    
+
+
+        </div>
+    </div>
+
+
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
