@@ -12,7 +12,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
         <div class="container">
             <a class="navbar-brand main-color" href="./home.php">
-                <h3>Dolap</h3>
+                <h3>Sell It</h3>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -56,7 +56,7 @@
         <div class="row d-flex align-items-center justify-content-center text-center">
             <div class="welcome-text">
                 <h4>Merhaba,</h4>
-                <p>Dolap’a giriş yap veya hesap oluştur, fırsatları kaçırma!</p>
+                <p>Sell It'e giriş yap veya hesap oluştur, fırsatları kaçırma!</p>
             </div>
         </div>
         <div class="d-flex justify-content-center mt-4">
@@ -112,7 +112,7 @@
                             if ($check) {
                                 $save = mysqli_query($connection, "INSERT into users (Name, Surname, Mail, Password,Username) values ('$Name', '$Surname','$Mail', '$Password','$Username')") or die("Hata: kayıt işlemi gerçekleşemedi.");
                                 setcookie('username', $Username, time() + (60 * 5), '/');
-                                header("Location: http://localhost:81/dolap/pages/home.php");
+                                header("Location: http://localhost:81/sellit/pages/home.php");
                                 exit;
                             }
                         }

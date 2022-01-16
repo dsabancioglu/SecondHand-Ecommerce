@@ -9,7 +9,7 @@
      <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
         <div class="container">
             <a href="./home.php" class="navbar-brand main-color">
-                <h3>Dolap</h3>
+                <h3>Sell It</h3>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -85,7 +85,7 @@
                 function removeSession()
                 {
                     setcookie('username', "null", time() + (60 * 10), '/');
-                    header("Location: http://localhost:81/dolap/pages/home.php");
+                    header("Location: http://localhost:81/sellit/pages/home.php");
                     exit;
                 }
 

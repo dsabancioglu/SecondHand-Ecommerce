@@ -11,7 +11,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light p-3">
         <div class="container">
             <a href="./home.php" class="navbar-brand main-color">
-                <h3>Dolap</h3>
+                <h3>Sell It</h3>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -86,7 +86,7 @@
                 function removeSession()
                 {
                     setcookie('username', "null", time() + (60 * 10), '/');
-                    header("Location: http://localhost:81/dolap/pages/home.php");
+                    header("Location: http://localhost:81/sellit/pages/home.php");
                     exit;
                 }
 
@@ -210,7 +210,7 @@
                                             <h6 class="card-title">' . $result['Price'] . ' TL' . '</h6>
                                         </div>
                                         <div class="card-footer d-flex justify-content-end">
-                                        <script> console.log('. $result2['Id'] .')</script>' .(($result2['Id'] == $userId) ? '<a href="../dao/deleteProduct.php?userId='. $userId . '&productId=' . $result['Id'] . '" "type="button" name="deleteProduct" class="w-25 btn btn-danger"> Sil</a>' : '<a href="buy.php?productId=' . $result['Id'] . '" "type="button" class="w-100 btn btn-outline-warning mt-4">Satın Al</a> ') . ' 
+                                        <script> console.log(' . $result2['Id'] . ')</script>' . (($result2['Id'] == $userId) ? '<a href="../dao/deleteProduct.php?userId=' . $userId . '&productId=' . $result['Id'] . '" "type="button" name="deleteProduct" class="w-25 btn btn-danger"> Sil</a>' : '<a href="buy.php?productId=' . $result['Id'] . '" "type="button" class="w-100 btn btn-outline-warning mt-4">Satın Al</a> ') . ' 
                                         </div>
                                     </div>      
                             </div>';
@@ -228,33 +228,71 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <form>
-                                <div class="form-group d-flex flex-column align-items-start mb-2">
-                                    <h6 for="exampleInputEmail1">Kullanıcı Adı</h6>
-                                    <input type="text" class="form-control" aria-describedby="emailHelp" />
-                                </div>
-                                <div class="form-group d-flex flex-column align-items-start mb-2">
-                                    <h6 for="exampleInputEmail1">E-mail</h6>
-                                    <input type="email" class="form-control" aria-describedby="emailHelp" />
-                                </div>
-                                <div class="form-group d-flex flex-column align-items-start mb-2">
-                                    <h6 for="exampleInputEmail1">Ad</h6>
-                                    <input type="text" class="form-control" aria-describedby="emailHelp" />
-                                </div>
-                                <div class="form-group d-flex flex-column align-items-start mb-2">
-                                    <h6 for="exampleInputEmail1">Soyad</h6>
-                                    <input type="text" class="form-control" aria-describedby="emailHelp" />
-                                </div>
-                                <div class="form-group d-flex flex-column align-items-start mb-3">
-                                    <h6 for="exampleInputPassword1">Parola</h6>
-                                    <input type="password" class="form-control" />
-                                </div>
-                            </form>
+                            <?php
+
+                            if (isset($_GET['userId'])) {
+                                $userId = $_GET['userId'];
+                            }
+
+                            echo ' <form action="../dao/addProduct.php?userId=' . $userId . '" method="POST">';
+
+                            ?>
+
+                            <div class="form-group d-flex flex-column align-items-start mb-2">
+                                <h6 for="exampleInputEmail1">Ürün Adı</h6>
+                                <input type="text" name="productName" class="form-control" aria-describedby="emailHelp" />
+                            </div>
+                            <div class="form-group d-flex flex-column align-items-start mb-2">
+                                <h6 for="exampleInputEmail1">Marka</h6>
+                                <select name="productBrand" class="form-select" aria-label="Default select example">
+                                    <option selected>Lütfen marka seçiniz.</option>
+                                    <option value="1">Bershka</option>
+                                    <option value="2">Zara</option>
+                                    <option value="4">Stradivarius</option>
+                                    <option value="3">Diğer</option>
+                                </select>
+                            </div>
+                            <div class="form-group d-flex flex-column align-items-start mb-2">
+                                <h6 for="exampleInputEmail1">Kategori</h6>
+                                <select name="productCategory" class="form-select" aria-label="Default select example">
+                                    <option selected>Lütfen kategori seçiniz.</option>
+                                    <option value="1">Sweatshirt</option>
+                                    <option value="3">Kaban</option>
+                                    <option value="4">Eşofman Altı</option>
+                                    <option value="5">Gözlük</option>
+                                    <option value="2">Şapka</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group d-flex flex-column align-items-start mb-2">
+                                <h6 for="exampleInputEmail1">Açıklama</h6>
+                                <input type="text" name="productExplain" class="form-control" aria-describedby="emailHelp" />
+                            </div>
+                            <div class="form-group d-flex flex-column align-items-start mb-2">
+                                <h6 for="exampleInputEmail1">Beden</h6>
+                                <select name="productSize" class="form-select" aria-label="Default select example">
+                                    <option selected>Lütfen beden seçiniz.</option>
+                                    <option value="S">S</option>
+                                    <option value="M">M</option>
+                                    <option value="L">L</option>
+                                    <option value="XL">XL</option>
+                                </select>
+                            </div>
+                            <div class="form-group d-flex flex-column align-items-start mb-3">
+                                <h6 for="exampleInputPassword1">Ürün Resmi</h6>
+                                <input type="file" name="productImage" class="form-control" />
+                            </div>
+                            <div class="form-group d-flex flex-column align-items-start mb-2">
+                                <h6 for="exampleInputEmail1">Fiyat</h6>
+                                <input type="text" name="productPrice" class="form-control" aria-describedby="emailHelp" />
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
-                            <button type="button" class="btn btn-success">Ekle</button>
+                            <button type="submit" class="btn btn-success">Ekle</button>
                         </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
